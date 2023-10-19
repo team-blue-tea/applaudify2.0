@@ -1,0 +1,46 @@
+supabase:
+  url: ${SUPABASE_URL}
+  anon: ${SUPABASE_ANON_KEY}
+  jwt_secret: ${SUPABASE_JWT_SIGNER}
+spring:
+  datasource:
+    url: ${SUPABASE_DATABASE_URL}
+    username: ${SUPABASE_DATABASE_USER}
+    password: ${SUPABASE_DATABASE_PASSWORD}
+    driverClassName: org.postgresql.Driver
+  jpa:
+    open-in-view: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        ddl-auto: update
+  sql:
+    init:
+      platform: postgresql
+      mode: always
+    output:
+      ansi:
+        enabled: always
+server:
+  error:
+    whitelabel:
+      enabled: true
+    include-stacktrace: always
+  address: localhost
+  port: ${PORT:8080}
+#logging:
+#  level:
+#    root: WARN
+#  org:
+#    hibernate:
+#      dialect: INFO
+#    springframework:
+#      boot:
+#        test:
+#          context:
+#            SpringBootTestContextBootstrapper: WARN
+#      test:
+#        context:
+#          support:
+#            AbstractContextLoader: ON
+#            AnnotationConfigContextLoaderUtils: ON
