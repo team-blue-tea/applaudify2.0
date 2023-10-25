@@ -20,8 +20,7 @@ public class ApplaudRepository {
         return Streamable.of(applaudRepository.findAll()).toList();
     }
 
-    public void addApplaud(Applaud applaud) {
-        applaudRepository.save(applaud);
+    public Applaud addApplaud(Applaud applaud) {
+       return applaudRepository.save(applaud);
     }
-
 }
