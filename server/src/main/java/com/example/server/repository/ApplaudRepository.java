@@ -4,9 +4,12 @@ import com.example.server.model.Applaud;
 import com.example.server.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Repository
 public class ApplaudRepository {
 
     private final JPAApplaudRepository applaudRepository;

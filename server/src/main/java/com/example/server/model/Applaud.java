@@ -23,6 +23,7 @@ public class Applaud {
     @JoinColumn(name = "receiver_id")
     private User receiver;
 
+    @Column(name = "applaud_comment")
     private String comment;
 
     private Date createdAt;
