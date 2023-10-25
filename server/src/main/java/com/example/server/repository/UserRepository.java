@@ -10,21 +10,19 @@ import java.util.List;
 @Repository
 public class UserRepository {
 
-    private final JPAUserRepository repo;
+    private final JPAUserRepository userRepository;
 
     @Autowired
-    public UserRepository(JPAUserRepository repo) {
-        this.repo = repo;
+    public UserRepository(JPAUserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public List<User> getUsers() {
-        return Streamable.of(repo.findAll()).toList();
+        return Streamable.of(userRepository.findAll()).toList();
     }
 
     public void addUser(User user) {
-        repo.save(user);
+        userRepository.save(user);
     }
-
-
 
 }
