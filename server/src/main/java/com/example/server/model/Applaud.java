@@ -1,6 +1,5 @@
 package com.example.server.model;
 
-import com.example.server.model.User;
 import jakarta.persistence.*;
 
 
@@ -11,17 +10,17 @@ import java.util.UUID;
 @Table(name = "applaud")
 public class Applaud {
     @Id
-    @Column(name = "user_id")
+    @Column(name = "applaud_id")
     @GeneratedValue
     private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "sender_id")
-    private User sender;
+    private Member sender;
 
     @ManyToOne
     @JoinColumn(name = "receiver_id")
-    private User receiver;
+    private Member receiver;
 
     @Column(name = "applaud_comment")
     private String comment;
@@ -31,7 +30,7 @@ public class Applaud {
     public Applaud() {
     }
 
-    public Applaud(UUID id, User sender, User receiver, String comment, Date createdAt) {
+    public Applaud(UUID id, Member sender, Member receiver, String comment, Date createdAt) {
         this.id = id;
         this.sender = sender;
         this.receiver = receiver;
@@ -43,19 +42,19 @@ public class Applaud {
         return id;
     }
 
-    public User getSender() {
+    public Member getSender() {
         return sender;
     }
 
-    public void setSender(User sender) {
+    public void setSender(Member sender) {
         this.sender = sender;
     }
 
-    public User getReceiver() {
+    public Member getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(User receiver) {
+    public void setReceiver(Member receiver) {
         this.receiver = receiver;
     }
 

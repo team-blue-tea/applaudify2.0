@@ -5,35 +5,29 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "user", schema = "public")
-public class User {
+@Table(name = "member")
+public class Member {
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "member_id")
     @GeneratedValue
     private UUID id;
 
-    @Column(name = "user_email")
     private String email;
 
-    @Column(name = "user_name")
     private String name;
 
-    @Column(name = "user_avatar")
     private String avatarUrl;
 
-    @Column(name = "user_bio")
     private String bio;
 
-    @Column(name = "user_skills")
     private String skills;
 
-    @Column(name = "user_experience")
     private String experience;
 
-    public User() {}
+    public Member() {}
 
-    public User(UUID id, String email, String name, String avatarUrl, String bio, String skills, String experience) {
+    public Member(UUID id, String email, String name, String avatarUrl, String bio, String skills, String experience) {
         this.id = id;
         this.email = email;
         this.name = name;
