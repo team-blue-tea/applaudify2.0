@@ -26,4 +26,51 @@ public class Applaud {
     private String comment;
 
     private Date createdAt;
+
+    public Applaud() {
+    }
+
+    public Applaud(UUID id, User sender, User receiver, String comment, Date createdAt) {
+        this.id = id;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.comment = comment;
+        this.createdAt = createdAt;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public User getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 }
