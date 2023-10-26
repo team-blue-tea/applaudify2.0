@@ -6,6 +6,7 @@ import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class ApplaudRepository {
@@ -23,5 +24,10 @@ public class ApplaudRepository {
 
     public Applaud addApplaud(Applaud applaud) {
        return applaudRepository.save(applaud);
+    }
+
+    public List<Applaud> getApplaudsByReceiver(String receiverId) {
+        UUID receiverUUID = UUID.fromString(receiverId);
+        return applaudRepository.findByReceiverId(receiverUUID);
     }
 }

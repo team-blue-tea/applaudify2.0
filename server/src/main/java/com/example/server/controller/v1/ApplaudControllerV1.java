@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/applauds")
+@RequestMapping("api/v1/applauds")
+@CrossOrigin("*")
 public class ApplaudControllerV1 {
 
     private final ApplaudRepository applaudRepository;
@@ -24,7 +26,12 @@ public class ApplaudControllerV1 {
     }
 
     @PostMapping
-    public Applaud createApplaud(@RequestBody Applaud applaud) {
-        return applaudRepository.addApplaud(applaud);
+    public String createApplaud(@RequestBody Applaud applaud) {
+        applaudRepository.addApplaud(applaud);
+        return "Applaud with id: " + applaud.getId() + " created!";
+    }
+    @GetMapping("/{receiverId}")
+    public List<Applaud> getApplaudsByReceiver(@PathVariable("receiverId") String receiverId) {
+        return applaudRepository.getApplaudsByReceiver(receiverId);
     }
 }
