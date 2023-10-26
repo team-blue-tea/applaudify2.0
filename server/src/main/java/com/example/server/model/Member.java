@@ -17,20 +17,29 @@ public class Member {
 
     private String name;
 
+    private String jobTitle;
+
+    private String company;
+
     private String avatarUrl;
 
+    @Column(length = 1000)
     private String bio;
 
+    @Column(length = 1000)
     private String skills;
 
+    @Column(length = 1000)
     private String experience;
 
     public Member() {}
 
-    public Member(UUID id, String email, String name, String avatarUrl, String bio, String skills, String experience) {
+    public Member(UUID id, String email, String name, String jobTitle, String company, String avatarUrl, String bio, String skills, String experience) {
         this.id = id;
         this.email = email;
         this.name = name;
+        this.jobTitle = jobTitle;
+        this.company = company;
         this.avatarUrl = avatarUrl;
         this.bio = bio;
         this.skills = skills;
@@ -47,6 +56,22 @@ public class Member {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     public String getEmail() {
