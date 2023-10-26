@@ -23,8 +23,6 @@ server:
     whitelabel:
       enabled: true
     include-stacktrace: always
-  address: localhost
-  port: ${PORT:8080}
 #logging:
 #  level:
 #    root: WARN

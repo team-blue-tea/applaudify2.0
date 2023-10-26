@@ -6,6 +6,7 @@ import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class MemberRepository {
@@ -25,4 +26,11 @@ public class MemberRepository {
         memberRepository.save(member);
     }
 
+    public Member getMemberById(UUID memberUUID) {
+        return memberRepository.findById(memberUUID).get();
+    }
+
+    public void updateMember(Member updatedMember) {
+        memberRepository.save(updatedMember);
+    }
 }
