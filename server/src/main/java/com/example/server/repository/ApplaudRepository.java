@@ -30,4 +30,12 @@ public class ApplaudRepository {
         UUID receiverUUID = UUID.fromString(receiverId);
         return applaudRepository.findByReceiverId(receiverUUID);
     }
+
+    public void updateApplaud(Applaud updatedApplaud) {
+        applaudRepository.save(updatedApplaud);
+    }
+
+    public Applaud getApplaudById(UUID applaudUUID) {
+        return applaudRepository.findById(applaudUUID).get();
+    }
 }

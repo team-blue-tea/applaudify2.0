@@ -34,4 +34,18 @@ public class ApplaudControllerV1 {
     public List<Applaud> getApplaudsByReceiver(@PathVariable("receiverId") String receiverId) {
         return applaudRepository.getApplaudsByReceiver(receiverId);
     }
+
+    @PutMapping("/{applaudId}")
+    public String updateApplaud(@PathVariable("applaudId") String applaudId, @RequestBody Applaud updatedApplaud) {
+
+        UUID applaudUUID = UUID.fromString(applaudId);
+        Applaud existingApplaud = applaudRepository.getApplaudById(applaudUUID);
+
+        existingApplaud.setRead(updatedApplaud.isRead());
+        existingApplaud.setPublished(updatedApplaud.isPublished());
+
+        applaudRepository.updateApplaud(existingApplaud);
+
+        return "Applaud with id: " + applaudId + " updated!";
+    }
 }
