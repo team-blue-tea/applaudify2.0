@@ -25,16 +25,23 @@ public class Applaud {
     @Column(name = "applaud_comment")
     private String comment;
 
+    private boolean isRead;
+
+    private boolean isPublished;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
     public Applaud() {
     }
 
-    public Applaud(UUID id, Member sender, Member receiver, String comment, Date createdAt) {
+    public Applaud(UUID id, Member sender, Member receiver, String comment, boolean isRead, boolean isPublished, Date createdAt) {
         this.id = id;
         this.sender = sender;
         this.receiver = receiver;
         this.comment = comment;
+        this.isRead = isRead;
+        this.isPublished = isPublished;
         this.createdAt = createdAt;
     }
 
@@ -64,6 +71,22 @@ public class Applaud {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public void setRead(boolean read) {
+        isRead = read;
+    }
+
+    public boolean isPublished() {
+        return isPublished;
+    }
+
+    public void setPublished(boolean published) {
+        isPublished = published;
     }
 
     public Date getCreatedAt() {
