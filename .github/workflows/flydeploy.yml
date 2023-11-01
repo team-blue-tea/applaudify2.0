@@ -19,15 +19,15 @@ jobs:
 
       - name: Build JAR file
         run: mvn clean package
-        working-directory: backend
+        working-directory: server
 
       - name: Build Docker image
         run: docker build -t applaudify .
-        working-directory: backend
+        working-directory: server
 
       - name: Deploy to Fly.io
-        run: flyctl deploy --remote-only
-        working-directory: backend
+        run: flyctl deploy --remote-only -a applaudify2-0
+        working-directory: server
         
         env: 
          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
