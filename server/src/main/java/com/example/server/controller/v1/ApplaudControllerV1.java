@@ -46,6 +46,6 @@ public class ApplaudControllerV1 {
 
         applaudRepository.updateApplaud(existingApplaud);
 
-        return "Applaud with id: " + applaudId + " updated!";
+        return "Applaud with id: " + applaudId + " successfully updated!";
     }
 }

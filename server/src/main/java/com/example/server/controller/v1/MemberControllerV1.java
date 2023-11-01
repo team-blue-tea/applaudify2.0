@@ -28,7 +28,7 @@ public class MemberControllerV1 {
     @PostMapping
     public String addMember(@RequestBody Member member) {
         repo.addMember(member);
-        return "Member with id: " + member.getId() + " successfully added to DB";
+        return "Member with id: " + member.getId() + " created!";
     }
 
     @PutMapping("/{id}")
