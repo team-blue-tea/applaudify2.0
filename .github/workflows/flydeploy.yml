@@ -26,7 +26,7 @@ jobs:
         working-directory: server
 
       - name: Deploy to Fly.io
-        run: flyctl deploy --local-only
+        run: flyctl deploy --remote-only -a applaudify-backend
         working-directory: server
         
         env: 
