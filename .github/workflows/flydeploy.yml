@@ -19,7 +19,7 @@ jobs:
 
       - name: Build JAR file
         run: mvn clean package
-        working-directory: backend
+        working-directory: server
 
       - name: Build Docker image
         run: docker build -t applaudify .
