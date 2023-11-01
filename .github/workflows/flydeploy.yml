@@ -2,7 +2,7 @@ name: Fly Deploy
 on:
   push:
     branches:
-      - main
+      - refactor
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -22,11 +22,18 @@ jobs:
         working-directory: server
 
       - name: Build Docker image
-        run: docker build -t applaudify .
+        run: docker build -t applaudify 
+          --build-arg SUPABASE_CONNECTION_STRING="${{ secrets.SUPABASE_CONNECTION_STRING }}" 
+          --build-arg SUPABASE_URL="${{ secrets.SUPABASE_URL }}" 
+          --build-arg SUPABASE_ANON_KEY="${{ secrets.SUPABASE_ANON_KEY }}" 
+          --build-arg SUPABASE_JWT_SIGNER="${{ secrets.SUPABASE_JWT_SIGNER }}" 
+          --build-arg SUPABASE_DATABASE_URL="${{ secrets.SUPABASE_DATABASE_URL }}" 
+          --build-arg SUPABASE_DATABASE_USER="${{ secrets.SUPABASE_DATABASE_USER }}" 
+          --build-arg SUPABASE_DATABASE_PASSWORD="${{ secrets.SUPABASE_DATABASE_PASSWORD }}" .
         working-directory: server
 
       - name: Deploy to Fly.io
-        run: flyctl deploy --remote-only -a applaudify2-0
+        run: flyctl deploy --remote-only -a applaudify-backend
         working-directory: server
         
         env: 
