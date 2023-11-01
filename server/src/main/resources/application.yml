@@ -23,19 +23,3 @@ server:
     whitelabel:
       enabled: true
     include-stacktrace: always
-#logging:
-#  level:
-#    root: WARN
-#  org:
-#    hibernate:
-#      dialect: INFO
-#    springframework:
-#      boot:
-#        test:
-#          context:
-#            SpringBootTestContextBootstrapper: WARN
-#      test:
-#        context:
-#          support:
-#            AbstractContextLoader: ON
-#            AnnotationConfigContextLoaderUtils: ON
