@@ -1,4 +1,13 @@
 FROM openjdk:17-jdk-alpine
+
+ENV SUPABASE_CONNECTION_STRING=jdbc:postgresql://db.nmbqmopivdgrgtvwzgfe.supabase.co:5432/postgres?user=postgres&password=Saltytea1337+
+ENV SUPABASE_URL=https://nmbqmopivdgrgtvwzgfe.supabase.co
+ENV SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tYnFtb3BpdmRncmd0dnd6Z2ZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc2MzY2MDYsImV4cCI6MjAxMzIxMjYwNn0.2ZHZnCpRHJAf58yIrsBnCSjYACMsdMygzLXmDOT7fKk
+ENV SUPABASE_JWT_SIGNER=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tYnFtb3BpdmRncmd0dnd6Z2ZlIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzYzNjYwNiwiZXhwIjoyMDEzMjEyNjA2fQ.BXFtO7NcRqaD2405si-XpKhpH4apGkmisps4NHmcYLQ
+ENV SUPABASE_DATABASE_URL=jdbc:postgresql://db.nmbqmopivdgrgtvwzgfe.supabase.co:5432/postgres
+ENV SUPABASE_DATABASE_USER=postgres
+ENV SUPABASE_DATABASE_PASSWORD=Saltytea1337+
+
 COPY ./target/server-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app.jar"]
