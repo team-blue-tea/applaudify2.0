@@ -35,6 +35,11 @@ public class ApplaudControllerV1 {
         return applaudRepository.getApplaudsByReceiver(receiverId);
     }
 
+    @GetMapping("/published/{memberEmail}")
+    public List<Applaud> getPublishedApplaudsByMemberEmail(@PathVariable("memberEmail") String memberEmail) {
+        return applaudRepository.getPublishedApplaudsByMemberEmail(memberEmail);
+    }
+
     @PutMapping("/{applaudId}")
     public String updateApplaud(@PathVariable("applaudId") String applaudId, @RequestBody Applaud updatedApplaud) {
 
