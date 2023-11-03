@@ -1,6 +1,7 @@
 package com.example.server.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 
 import java.util.Date;
@@ -30,6 +31,7 @@ public class Applaud {
     private boolean isPublished;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Date createdAt;
 
     public Applaud() {
