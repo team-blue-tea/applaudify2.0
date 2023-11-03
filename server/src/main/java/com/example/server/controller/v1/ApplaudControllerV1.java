@@ -40,6 +40,11 @@ public class ApplaudControllerV1 {
         return applaudRepository.getPublishedApplaudsByMemberEmail(memberEmail);
     }
 
+    @GetMapping("/unread/{memberEmail}")
+    public String getNumberOfUnreadApplaudsByMemberEmail(@PathVariable("memberEmail") String memberEmail) {
+        return applaudRepository.getNumberOfUnreadApplaudsByMemberEmail(memberEmail);
+    }
+
     @PutMapping("/{applaudId}")
     public String updateApplaud(@PathVariable("applaudId") String applaudId, @RequestBody Applaud updatedApplaud) {
 

@@ -11,4 +11,6 @@ public interface JPAApplaudRepository extends CrudRepository<Applaud, UUID> {
     List<Applaud> findByReceiverId(UUID receiverId);
 
     List<Applaud> findByReceiverAndIsPublished(Member receiver, boolean isPublished);
+
+    List <Applaud> findByReceiverAndIsRead(Member member, boolean isRead);
 }
