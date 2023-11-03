@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.UUID;
 
 public interface JPAMemberRepository extends CrudRepository<Member, UUID> {
+    Member findByEmail(String memberEmail);
 }

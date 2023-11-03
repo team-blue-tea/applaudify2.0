@@ -1,10 +1,12 @@
 package com.example.server.repository;
 
 import com.example.server.model.Applaud;
+import com.example.server.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,10 +14,12 @@ import java.util.UUID;
 public class ApplaudRepository {
 
     private final JPAApplaudRepository applaudRepository;
+    private final JPAMemberRepository memberRepository;
 
     @Autowired
-    public ApplaudRepository(JPAApplaudRepository applaudRepository) {
+    public ApplaudRepository(JPAApplaudRepository applaudRepository, JPAMemberRepository memberRepository) {
         this.applaudRepository = applaudRepository;
+        this.memberRepository = memberRepository;
     }
 
     public List<Applaud> getApplauds() {
@@ -37,5 +41,23 @@ public class ApplaudRepository {
 
     public Applaud getApplaudById(UUID applaudUUID) {
         return applaudRepository.findById(applaudUUID).get();
+    }
+
+    public List<Applaud> getPublishedApplaudsByMemberEmail(String memberEmail) {
+        Member member = memberRepository.findByEmail(memberEmail);
+        if (member != null) {
+            return applaudRepository.findByReceiverAndIsPublished(member, true);
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    public String getNumberOfUnreadApplaudsByMemberEmail(String memberEmail) {
+        Member member = memberRepository.findByEmail(memberEmail);
+        if (member != null) {
+            var numberOfUnreadApplauds = applaudRepository.findByReceiverAndIsRead(member, false).size();
+            return Integer.toString(numberOfUnreadApplauds);
+        }
+        return "Member with email: " + memberEmail + " not found.";
     }
 }
