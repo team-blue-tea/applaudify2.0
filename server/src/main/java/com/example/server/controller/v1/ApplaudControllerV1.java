@@ -45,13 +45,25 @@ public class ApplaudControllerV1 {
         return applaudRepository.getNumberOfUnreadApplaudsByMemberEmail(memberEmail);
     }
 
-    @PutMapping("/{applaudId}")
-    public String updateApplaud(@PathVariable("applaudId") String applaudId, @RequestBody Applaud updatedApplaud) {
+    @PutMapping("/unread/{applaudId}")
+    public String updateApplaudRead(@PathVariable("applaudId") String applaudId, @RequestBody Applaud updatedApplaud) {
 
         UUID applaudUUID = UUID.fromString(applaudId);
         Applaud existingApplaud = applaudRepository.getApplaudById(applaudUUID);
 
         existingApplaud.setRead(updatedApplaud.isRead());
+
+        applaudRepository.updateApplaud(existingApplaud);
+
+        return "Applaud with id: " + applaudId + " successfully updated!";
+    }
+
+    @PutMapping("/published/{applaudId}")
+    public String updateApplaudPublished(@PathVariable("applaudId") String applaudId, @RequestBody Applaud updatedApplaud) {
+
+        UUID applaudUUID = UUID.fromString(applaudId);
+        Applaud existingApplaud = applaudRepository.getApplaudById(applaudUUID);
+
         existingApplaud.setPublished(updatedApplaud.isPublished());
 
         applaudRepository.updateApplaud(existingApplaud);
