@@ -2,7 +2,7 @@ name: Fly Deploy main
 on:
   push:
     branches:
-      - refactor
+      - main
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
