@@ -1,7 +1,9 @@
 package com.example.server.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -32,9 +34,13 @@ public class Member {
     @Column(length = 1000)
     private String experience;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
+    private Date createdAt;
+
     public Member() {}
 
-    public Member(UUID id, String email, String name, String jobTitle, String company, String avatarUrl, String bio, String skills, String experience) {
+    public Member(UUID id, String email, String name, String jobTitle, String company, String avatarUrl, String bio, String skills, String experience, Date createdAt) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -44,6 +50,7 @@ public class Member {
         this.bio = bio;
         this.skills = skills;
         this.experience = experience;
+        this.createdAt = createdAt;
     }
 
     public UUID getId() {
@@ -112,5 +119,13 @@ public class Member {
 
     public void setExperience(String experience) {
         this.experience = experience;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

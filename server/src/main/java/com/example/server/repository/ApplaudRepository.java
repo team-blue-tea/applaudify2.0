@@ -58,6 +58,6 @@ public class ApplaudRepository {
             var numberOfUnreadApplauds = applaudRepository.findByReceiverAndIsRead(member, false).size();
             return Integer.toString(numberOfUnreadApplauds);
         }
-        return "Member with email: " + memberEmail + " not found.";
+        return "0";
     }
 }
