@@ -2,7 +2,9 @@ package com.example.server.controller.v1;
 
 import com.example.server.model.Applaud;
 import com.example.server.repository.ApplaudRepository;
+import com.example.server.service.ApplaudService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,25 +16,32 @@ import java.util.UUID;
 public class ApplaudControllerV1 {
 
     private final ApplaudRepository applaudRepository;
+    private final ApplaudService applaudService;
 
     @Autowired
-    public ApplaudControllerV1(ApplaudRepository applaudRepository) {
+    public ApplaudControllerV1(ApplaudRepository applaudRepository, ApplaudService applaudService) {
         this.applaudRepository=applaudRepository;
+        this.applaudService=applaudService;
     }
 
     @GetMapping
     public List<Applaud> getAllApplauds() {
-        return applaudRepository.getApplauds();
+        return applaudService.getAllApplauds();
     }
 
     @PostMapping
-    public String createApplaud(@RequestBody Applaud applaud) {
-        applaudRepository.addApplaud(applaud);
-        return "Applaud with id: " + applaud.getId() + " created!";
+    public ResponseEntity<String> createApplaud(@RequestBody Applaud applaud) {
+        try {
+            applaudRepository.addApplaud(applaud);
+            return ResponseEntity.ok("Applaud with id: " + applaud.getId() + " created!");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
+
     @GetMapping("/{receiverId}")
     public List<Applaud> getApplaudsByReceiver(@PathVariable("receiverId") String receiverId) {
-        return applaudRepository.getApplaudsByReceiver(receiverId);
+        return applaudRepository.getApplaudsByReceiverId(receiverId);
     }
 
     @GetMapping("/published/{memberEmail}")
@@ -70,4 +79,4 @@ public class ApplaudControllerV1 {
 
         return "Applaud with id: " + applaudId + " successfully updated!";
     }
-}
+} 

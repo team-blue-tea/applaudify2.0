@@ -26,13 +26,23 @@ public class ApplaudRepository {
         return Streamable.of(applaudRepository.findAll()).toList();
     }
 
-    public Applaud addApplaud(Applaud applaud) {
+    public Applaud addApplaud(Applaud applaud) throws IllegalArgumentException {
+        var sender = memberRepository.findById(applaud.getSender().getId()).orElse(null);
+        if (sender == null) {
+            throw new IllegalArgumentException("Sender ID is not exist");
+        }
+        var receiver = memberRepository.findById(applaud.getReceiver().getId()).orElse(null);
+        if (receiver == null) {
+            throw new IllegalArgumentException("Receiver ID is not exist");
+        }
        return applaudRepository.save(applaud);
     }
 
-    public List<Applaud> getApplaudsByReceiver(String receiverId) {
+    public List<Applaud> getApplaudsByReceiverId(String receiverId) throws IllegalArgumentException {
         UUID receiverUUID = UUID.fromString(receiverId);
-        return applaudRepository.findByReceiverId(receiverUUID);
+        var applauds = applaudRepository.findByReceiverId(receiverUUID);
+        if (applauds == null) {throw new IllegalArgumentException("Member with ID " + receiverId + " does not exist.");}
+        return applauds;
     }
 
     public void updateApplaud(Applaud updatedApplaud) {
