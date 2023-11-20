@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -38,11 +39,8 @@ public class ApplaudRepository {
        return applaudRepository.save(applaud);
     }
 
-    public List<Applaud> getApplaudsByReceiverId(String receiverId) throws IllegalArgumentException {
-        UUID receiverUUID = UUID.fromString(receiverId);
-        var applauds = applaudRepository.findByReceiverId(receiverUUID);
-        if (applauds == null) {throw new IllegalArgumentException("Member with ID " + receiverId + " does not exist.");}
-        return applauds;
+    public List<Applaud> findByReceiverId(UUID receiverId) {
+        return applaudRepository.findByReceiverId(receiverId);
     }
 
     public void updateApplaud(Applaud updatedApplaud) {

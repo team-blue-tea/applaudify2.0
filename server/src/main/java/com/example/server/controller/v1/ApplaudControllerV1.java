@@ -29,19 +29,10 @@ public class ApplaudControllerV1 {
         return applaudService.getAllApplauds();
     }
 
-    @PostMapping
-    public ResponseEntity<String> createApplaud(@RequestBody Applaud applaud) {
-        try {
-            applaudRepository.addApplaud(applaud);
-            return ResponseEntity.ok("Applaud with id: " + applaud.getId() + " created!");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
+    //need to refactor endpoint to be /receiver/{id}
     @GetMapping("/{receiverId}")
-    public List<Applaud> getApplaudsByReceiver(@PathVariable("receiverId") String receiverId) {
-        return applaudRepository.getApplaudsByReceiverId(receiverId);
+    public List<Applaud> getApplaudsByReceiverId(@PathVariable("receiverId") UUID receiverId) {
+        return applaudService.getApplaudsByReceiverId(receiverId);
     }
 
     @GetMapping("/published/{memberEmail}")
@@ -52,6 +43,16 @@ public class ApplaudControllerV1 {
     @GetMapping("/unread/{memberEmail}")
     public String getNumberOfUnreadApplaudsByMemberEmail(@PathVariable("memberEmail") String memberEmail) {
         return applaudRepository.getNumberOfUnreadApplaudsByMemberEmail(memberEmail);
+    }
+
+    @PostMapping
+    public ResponseEntity<String> createApplaud(@RequestBody Applaud applaud) {
+        try {
+            applaudRepository.addApplaud(applaud);
+            return ResponseEntity.ok("Applaud with id: " + applaud.getId() + " created!");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PutMapping("/unread/{applaudId}")
