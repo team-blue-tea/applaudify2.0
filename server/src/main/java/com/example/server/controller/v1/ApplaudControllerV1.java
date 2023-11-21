@@ -5,8 +5,10 @@ import com.example.server.repository.ApplaudRepository;
 import com.example.server.service.ApplaudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,10 +48,10 @@ public class ApplaudControllerV1 {
     }
 
     @PostMapping
-    public ResponseEntity<String> createApplaud(@RequestBody Applaud applaud) {
+    public ResponseEntity<?> createApplaud(@RequestBody Applaud applaud) {
         try {
-            applaudRepository.addApplaud(applaud);
-            return ResponseEntity.ok("Applaud with id: " + applaud.getId() + " created!");
+            var newApplaud = applaudService.addApplaud(applaud);
+            return ResponseEntity.created(URI.create("api/v1/applauds/" + newApplaud.getId())).body(newApplaud);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

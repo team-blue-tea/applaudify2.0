@@ -6,6 +6,7 @@ import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -37,4 +38,6 @@ public class MemberRepository {
     public Member findByEmail(String memberEmail) {
         return memberRepository.findByEmail(memberEmail);
     }
+
+    public Optional<Member> findById(UUID memberId) { return memberRepository.findById(memberId);}
 }

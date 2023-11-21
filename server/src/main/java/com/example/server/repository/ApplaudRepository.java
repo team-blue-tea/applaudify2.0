@@ -27,16 +27,8 @@ public class ApplaudRepository {
         return Streamable.of(applaudRepository.findAll()).toList();
     }
 
-    public Applaud addApplaud(Applaud applaud) throws IllegalArgumentException {
-        var sender = memberRepository.findById(applaud.getSender().getId()).orElse(null);
-        if (sender == null) {
-            throw new IllegalArgumentException("Sender ID is not exist");
-        }
-        var receiver = memberRepository.findById(applaud.getReceiver().getId()).orElse(null);
-        if (receiver == null) {
-            throw new IllegalArgumentException("Receiver ID is not exist");
-        }
-       return applaudRepository.save(applaud);
+    public Applaud addApplaud(Applaud applaud) {
+        return applaudRepository.save(applaud);
     }
 
     public List<Applaud> findByReceiverId(UUID receiverId) {
