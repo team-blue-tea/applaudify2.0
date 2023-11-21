@@ -2,6 +2,7 @@ package com.example.server.controller.v1;
 
 import com.example.server.model.Member;
 import com.example.server.repository.MemberRepository;
+import com.example.server.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,15 +15,17 @@ import java.util.UUID;
 public class MemberControllerV1 {
 
     private final MemberRepository repo;
+    private final MemberService memberService;
 
     @Autowired
-    public MemberControllerV1(MemberRepository repo) {
+    public MemberControllerV1(MemberRepository repo, MemberService memberService) {
         this.repo = repo;
+        this.memberService = memberService;
     }
 
     @GetMapping
     public List<Member> getMembers() {
-        return repo.getMembers();
+        return memberService.getMembers();
     }
 
     @PostMapping
