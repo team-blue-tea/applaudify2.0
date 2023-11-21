@@ -1,11 +1,9 @@
 package com.example.server.controller.v1;
 
 import com.example.server.model.Applaud;
-import com.example.server.repository.ApplaudRepository;
 import com.example.server.service.ApplaudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -17,12 +15,10 @@ import java.util.UUID;
 @CrossOrigin("*")
 public class ApplaudControllerV1 {
 
-    private final ApplaudRepository applaudRepository;
     private final ApplaudService applaudService;
 
     @Autowired
-    public ApplaudControllerV1(ApplaudRepository applaudRepository, ApplaudService applaudService) {
-        this.applaudRepository=applaudRepository;
+    public ApplaudControllerV1(ApplaudService applaudService) {
         this.applaudService=applaudService;
     }
 
@@ -61,7 +57,7 @@ public class ApplaudControllerV1 {
     public ResponseEntity<?> updateApplaud(
             @PathVariable("applaudId") UUID applaudId,
             @RequestBody Applaud updatedApplaud,
-            @RequestParam("field") String fieldToUpdate) throws IllegalArgumentException {
+            @RequestParam("field") String fieldToUpdate) {
         try {
             applaudService.updateApplaud(applaudId, updatedApplaud, fieldToUpdate);
             return ResponseEntity.ok("Applaud with id: " + applaudId + " successfully updated!");
@@ -69,31 +65,4 @@ public class ApplaudControllerV1 {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-
-//    @PutMapping("/unread/{applaudId}")
-//    public String updateApplaudRead(@PathVariable("applaudId") String applaudId, @RequestBody Applaud updatedApplaud) {
-//
-//        UUID applaudUUID = UUID.fromString(applaudId);
-//        Applaud existingApplaud = applaudRepository.getApplaudById(applaudUUID);
-//
-//        existingApplaud.setRead(updatedApplaud.isRead());
-//
-//        applaudRepository.updateApplaud(existingApplaud);
-//
-//        return "Applaud with id: " + applaudId + " successfully updated!";
-//    }
-//
-//    @PutMapping("/published/{applaudId}")
-//    public String updateApplaudPublished(@PathVariable("applaudId") String applaudId, @RequestBody Applaud updatedApplaud) {
-//
-//        UUID applaudUUID = UUID.fromString(applaudId);
-//        Applaud existingApplaud = applaudRepository.getApplaudById(applaudUUID);
-//
-//        existingApplaud.setPublished(updatedApplaud.isPublished());
-//
-//        applaudRepository.updateApplaud(existingApplaud);
-//
-//        return "Applaud with id: " + applaudId + " successfully updated!";
-//    }
 } 
