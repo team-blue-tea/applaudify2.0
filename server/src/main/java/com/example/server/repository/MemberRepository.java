@@ -33,4 +33,8 @@ public class MemberRepository {
     public void updateMember(Member updatedMember) {
         memberRepository.save(updatedMember);
     }
+
+    public Member findByEmail(String memberEmail) {
+        return memberRepository.findByEmail(memberEmail);
+    }
 }

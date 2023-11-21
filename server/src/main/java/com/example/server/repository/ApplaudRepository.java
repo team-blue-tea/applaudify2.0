@@ -51,13 +51,8 @@ public class ApplaudRepository {
         return applaudRepository.findById(applaudUUID).get();
     }
 
-    public List<Applaud> getPublishedApplaudsByMemberEmail(String memberEmail) {
-        Member member = memberRepository.findByEmail(memberEmail);
-        if (member != null) {
-            return applaudRepository.findByReceiverAndIsPublished(member, true);
-        } else {
-            return Collections.emptyList();
-        }
+    public List<Applaud> findByReceiverAndIsPublished(Member member, boolean published) {
+        return applaudRepository.findByReceiverAndIsPublished(member, true);
     }
 
     public String getNumberOfUnreadApplaudsByMemberEmail(String memberEmail) {

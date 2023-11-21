@@ -37,7 +37,7 @@ public class ApplaudControllerV1 {
 
     @GetMapping("/published/{memberEmail}")
     public List<Applaud> getPublishedApplaudsByMemberEmail(@PathVariable("memberEmail") String memberEmail) {
-        return applaudRepository.getPublishedApplaudsByMemberEmail(memberEmail);
+        return applaudService.getPublishedApplaudsByMemberEmail(memberEmail);
     }
 
     @GetMapping("/unread/{memberEmail}")
