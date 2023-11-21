@@ -56,30 +56,44 @@ public class ApplaudControllerV1 {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-    @PutMapping("/unread/{applaudId}")
-    public String updateApplaudRead(@PathVariable("applaudId") String applaudId, @RequestBody Applaud updatedApplaud) {
-
-        UUID applaudUUID = UUID.fromString(applaudId);
-        Applaud existingApplaud = applaudRepository.getApplaudById(applaudUUID);
-
-        existingApplaud.setRead(updatedApplaud.isRead());
-
-        applaudRepository.updateApplaud(existingApplaud);
-
-        return "Applaud with id: " + applaudId + " successfully updated!";
+    //need to refactor frontend to send to be /update/{applaudId}
+    @PutMapping("/update/{applaudId}")
+    public ResponseEntity<?> updateApplaud(
+            @PathVariable("applaudId") UUID applaudId,
+            @RequestBody Applaud updatedApplaud,
+            @RequestParam("field") String fieldToUpdate) throws IllegalArgumentException {
+        try {
+            applaudService.updateApplaud(applaudId, updatedApplaud, fieldToUpdate);
+            return ResponseEntity.ok("Applaud with id: " + applaudId + " successfully updated!");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
-    @PutMapping("/published/{applaudId}")
-    public String updateApplaudPublished(@PathVariable("applaudId") String applaudId, @RequestBody Applaud updatedApplaud) {
 
-        UUID applaudUUID = UUID.fromString(applaudId);
-        Applaud existingApplaud = applaudRepository.getApplaudById(applaudUUID);
-
-        existingApplaud.setPublished(updatedApplaud.isPublished());
-
-        applaudRepository.updateApplaud(existingApplaud);
-
-        return "Applaud with id: " + applaudId + " successfully updated!";
-    }
+//    @PutMapping("/unread/{applaudId}")
+//    public String updateApplaudRead(@PathVariable("applaudId") String applaudId, @RequestBody Applaud updatedApplaud) {
+//
+//        UUID applaudUUID = UUID.fromString(applaudId);
+//        Applaud existingApplaud = applaudRepository.getApplaudById(applaudUUID);
+//
+//        existingApplaud.setRead(updatedApplaud.isRead());
+//
+//        applaudRepository.updateApplaud(existingApplaud);
+//
+//        return "Applaud with id: " + applaudId + " successfully updated!";
+//    }
+//
+//    @PutMapping("/published/{applaudId}")
+//    public String updateApplaudPublished(@PathVariable("applaudId") String applaudId, @RequestBody Applaud updatedApplaud) {
+//
+//        UUID applaudUUID = UUID.fromString(applaudId);
+//        Applaud existingApplaud = applaudRepository.getApplaudById(applaudUUID);
+//
+//        existingApplaud.setPublished(updatedApplaud.isPublished());
+//
+//        applaudRepository.updateApplaud(existingApplaud);
+//
+//        return "Applaud with id: " + applaudId + " successfully updated!";
+//    }
 } 

@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Repository
 public class ApplaudRepository {
@@ -39,8 +36,8 @@ public class ApplaudRepository {
         applaudRepository.save(updatedApplaud);
     }
 
-    public Applaud getApplaudById(UUID applaudUUID) {
-        return applaudRepository.findById(applaudUUID).get();
+    public Optional<Applaud> getApplaudById(UUID applaudUUID) {
+        return applaudRepository.findById(applaudUUID);
     }
 
     public List<Applaud> findByReceiverAndIsPublished(Member member, boolean published) {

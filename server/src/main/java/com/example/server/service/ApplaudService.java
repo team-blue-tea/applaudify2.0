@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -54,6 +55,17 @@ public class ApplaudService {
     public Applaud addApplaud(Applaud applaud) throws IllegalArgumentException {
         validateApplaudData(applaud);
         return applaudRepository.addApplaud(applaud);
+    }
+
+    public void updateApplaud(UUID applaudId, Applaud updatedApplaud, String fieldToUpdate) throws IllegalArgumentException {
+            var existingApplaud = applaudRepository.getApplaudById(applaudId)
+                .orElseThrow(() -> new IllegalArgumentException("Applaud with id: "+ applaudId +" does not exist"));
+            switch (fieldToUpdate) {
+                case "read" -> existingApplaud.setRead(updatedApplaud.isRead());
+                case "published" -> existingApplaud.setPublished(updatedApplaud.isPublished());
+                default -> throw new IllegalArgumentException("Invalid field to update");
+            }
+            applaudRepository.updateApplaud(existingApplaud);
     }
 
     private void validateApplaudData(Applaud applaud) {
