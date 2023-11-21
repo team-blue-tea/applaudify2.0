@@ -55,12 +55,7 @@ public class ApplaudRepository {
         return applaudRepository.findByReceiverAndIsPublished(member, true);
     }
 
-    public String getNumberOfUnreadApplaudsByMemberEmail(String memberEmail) {
-        Member member = memberRepository.findByEmail(memberEmail);
-        if (member != null) {
-            var numberOfUnreadApplauds = applaudRepository.findByReceiverAndIsRead(member, false).size();
-            return Integer.toString(numberOfUnreadApplauds);
-        }
-        return "0";
+    public String getNumberOfUnreadApplaudsByReceiverEmail(Member member, boolean read) {
+            return Integer.toString(applaudRepository.findByReceiverAndIsRead(member, false).size());
     }
 }

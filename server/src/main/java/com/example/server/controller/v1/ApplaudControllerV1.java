@@ -42,7 +42,7 @@ public class ApplaudControllerV1 {
 
     @GetMapping("/unread/{memberEmail}")
     public String getNumberOfUnreadApplaudsByMemberEmail(@PathVariable("memberEmail") String memberEmail) {
-        return applaudRepository.getNumberOfUnreadApplaudsByMemberEmail(memberEmail);
+        return applaudService.getNumberOfUnreadApplaudsByMemberEmail(memberEmail);
     }
 
     @PostMapping
