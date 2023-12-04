@@ -1,6 +1,7 @@
 package com.example.server.controller.v1;
 
 import com.example.server.model.Applaud;
+import com.example.server.model.dto.ApplaudDTO;
 import com.example.server.service.ApplaudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class ApplaudControllerV1 {
     }
 
     @GetMapping
-    public List<Applaud> getAllApplauds() {
+    public List<ApplaudDTO> getAllApplauds() {
         return applaudService.getAllApplauds();
     }
 

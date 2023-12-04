@@ -2,6 +2,8 @@ package com.example.server.service;
 
 import com.example.server.model.Applaud;
 import com.example.server.model.Member;
+import com.example.server.model.dto.ApplaudDTO;
+import com.example.server.model.dto.MemberDTO;
 import com.example.server.repository.ApplaudRepository;
 import com.example.server.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,21 +12,25 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ApplaudService {
 
     private final ApplaudRepository applaudRepository;
     private final MemberRepository memberRepository;
+    private final ApplaudMapper applaudMapper;
 
     @Autowired
-    public ApplaudService(ApplaudRepository applaudRepository, MemberRepository memberRepository){
+    public ApplaudService(ApplaudRepository applaudRepository, MemberRepository memberRepository, ApplaudMapper applaudMapper){
         this.applaudRepository = applaudRepository;
         this.memberRepository = memberRepository;
+        this.applaudMapper = applaudMapper;
     }
 
-    public List<Applaud> getAllApplauds() {
-        return applaudRepository.getApplauds();
+    public List<ApplaudDTO> getAllApplauds() {
+        List<Applaud> applauds = applaudRepository.getApplauds();
+        return applauds.stream().map(applaudMapper::applaudToDTO).collect(Collectors.toList());
     }
 
     public List<Applaud> getApplaudsByReceiverId(UUID receiverId) {

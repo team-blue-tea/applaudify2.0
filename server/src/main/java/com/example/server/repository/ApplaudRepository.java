@@ -2,6 +2,10 @@ package com.example.server.repository;
 
 import com.example.server.model.Applaud;
 import com.example.server.model.Member;
+import com.example.server.model.dto.ApplaudDTO;
+import com.example.server.model.dto.MemberDTO;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Repository;
@@ -12,12 +16,10 @@ import java.util.*;
 public class ApplaudRepository {
 
     private final JPAApplaudRepository applaudRepository;
-    private final JPAMemberRepository memberRepository;
 
     @Autowired
     public ApplaudRepository(JPAApplaudRepository applaudRepository, JPAMemberRepository memberRepository) {
         this.applaudRepository = applaudRepository;
-        this.memberRepository = memberRepository;
     }
 
     public List<Applaud> getApplauds() {
