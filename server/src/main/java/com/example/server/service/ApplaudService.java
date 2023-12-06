@@ -38,19 +38,15 @@ public class ApplaudService {
     }
 
     public List<Applaud> getPublishedApplaudsByMemberEmail(String memberEmail) {
-        Member member = memberRepository.findByEmail(memberEmail);
-        if (member != null) {
-            return applaudRepository.findByReceiverAndIsPublished(member, true);
-        }
-        return Collections.emptyList();
+            return applaudRepository.findByReceiverAndIsPublished(
+                    memberRepository.findByEmail(memberEmail),
+                    true);
     }
 
     public String getNumberOfUnreadApplaudsByMemberEmail(String memberEmail) {
-        Member member = memberRepository.findByEmail(memberEmail);
-        if (member != null) {
-            return applaudRepository.getNumberOfUnreadApplaudsByReceiverEmail(member, false);
-        }
-        return "0";
+            return applaudRepository.getNumberOfUnreadApplaudsByReceiverEmail(
+                    memberRepository.findByEmail(memberEmail),
+                    false);
     }
 
     public Applaud addApplaud(Applaud applaud) throws IllegalArgumentException {
