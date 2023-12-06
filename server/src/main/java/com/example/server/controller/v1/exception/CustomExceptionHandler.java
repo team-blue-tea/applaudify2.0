@@ -2,6 +2,7 @@ package com.example.server.controller.v1.exception;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
@@ -38,5 +40,9 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return exception.getMessage();
     }
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public String handleDataIntegrityViolation(DataIntegrityViolationException exception) {
+        return exception.getMessage();
+    }
 }
 

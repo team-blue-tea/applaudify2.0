@@ -29,18 +29,26 @@ public class ApplaudService {
     }
 
     public List<ApplaudDTO> getAllApplauds() {
-        List<Applaud> applauds = applaudRepository.getApplauds();
-        return applauds.stream().map(applaudMapper::applaudToDTO).collect(Collectors.toList());
+        return applaudRepository.getApplauds()
+                .stream()
+                .map(applaudMapper::applaudToDTO)
+                .collect(Collectors.toList());
     }
 
-    public List<Applaud> getApplaudsByReceiverId(UUID receiverId) {
-        return applaudRepository.findByReceiverId(receiverId);
+    public List<ApplaudDTO> getApplaudsByReceiverId(UUID receiverId) {
+        return applaudRepository.findByReceiverId(receiverId)
+                .stream()
+                .map(applaudMapper::applaudToDTO)
+                .collect(Collectors.toList());
     }
 
-    public List<Applaud> getPublishedApplaudsByMemberEmail(String memberEmail) {
+    public List<ApplaudDTO> getPublishedApplaudsByMemberEmail(String memberEmail) {
             return applaudRepository.findByReceiverAndIsPublished(
                     memberRepository.findByEmail(memberEmail),
-                    true);
+                    true)
+                    .stream()
+                    .map(applaudMapper::applaudToDTO)
+                    .collect(Collectors.toList());
     }
 
     public String getNumberOfUnreadApplaudsByMemberEmail(String memberEmail) {
@@ -49,9 +57,8 @@ public class ApplaudService {
                     false);
     }
 
-    public Applaud addApplaud(Applaud applaud) throws IllegalArgumentException {
-        validateApplaudData(applaud);
-        return applaudRepository.addApplaud(applaud);
+    public Applaud addApplaud(ApplaudDTO applaudDTO) {
+        return applaudRepository.addApplaud(applaudMapper.dtoToApplaud(applaudDTO));
     }
 
     public void updateApplaud(UUID applaudId, Applaud updatedApplaud, String fieldToUpdate) throws IllegalArgumentException {
@@ -65,19 +72,20 @@ public class ApplaudService {
             applaudRepository.updateApplaud(existingApplaud);
     }
 
-    private void validateApplaudData(Applaud applaud) {
-        if (applaud.getSender() == null) {
-            throw new IllegalArgumentException("Sender cannot be null");
-        }
-        if (applaud.getReceiver() == null) {
-            throw new IllegalArgumentException("Receiver cannot be null");
-        }
-        if (applaud.getComment() == null) {
-            throw new IllegalArgumentException("Comment cannot be null");
-        }
-        memberRepository.findById(applaud.getSender().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Sender with id: "+ applaud.getSender().getId() +" does not exist"));
-        memberRepository.findById(applaud.getReceiver().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Receiver with id: "+ applaud.getReceiver().getId() +" does not exist"));
-    }
+//    private Applaud validateApplaudData(ApplaudDTO applaudDTO) {
+//        if (applaudDTO.getSender() == null) {
+//            throw new IllegalArgumentException("Sender cannot be null");
+//        }
+//        if (applaudDTO.getReceiver() == null) {
+//            throw new IllegalArgumentException("Receiver cannot be null");
+//        }
+//        if (applaudDTO.getComment() == null) {
+//            throw new IllegalArgumentException("Comment cannot be null");
+//        }
+//        memberRepository.findById(applaudDTO.getSender().getId())
+//                .orElseThrow(() -> new IllegalArgumentException("Sender with id: "+ applaudDTO.getSender().getId() +" does not exist"));
+//        memberRepository.findById(applaudDTO.getReceiver().getId())
+//                .orElseThrow(() -> new IllegalArgumentException("Receiver with id: "+ applaudDTO.getReceiver().getId() +" does not exist"));
+//        return applaudMapper.dtoToApplaud(applaudDTO);
+//    }
 }

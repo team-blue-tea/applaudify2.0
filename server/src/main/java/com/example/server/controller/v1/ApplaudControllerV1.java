@@ -30,12 +30,12 @@ public class ApplaudControllerV1 {
 
     //need to refactor endpoint to be /receiver/{id}
     @GetMapping("/{receiverId}")
-    public List<Applaud> getApplaudsByReceiverId(@PathVariable("receiverId") UUID receiverId) {
+    public List<ApplaudDTO> getApplaudsByReceiverId(@PathVariable("receiverId") UUID receiverId) {
         return applaudService.getApplaudsByReceiverId(receiverId);
     }
 
     @GetMapping("/published/{memberEmail}")
-    public List<Applaud> getPublishedApplaudsByMemberEmail(@PathVariable("memberEmail") String memberEmail) {
+    public List<ApplaudDTO> getPublishedApplaudsByMemberEmail(@PathVariable("memberEmail") String memberEmail) {
         return applaudService.getPublishedApplaudsByMemberEmail(memberEmail);
     }
 
@@ -45,13 +45,8 @@ public class ApplaudControllerV1 {
     }
 
     @PostMapping
-    public ResponseEntity<?> createApplaud(@RequestBody Applaud applaud) {
-        try {
-            var newApplaud = applaudService.addApplaud(applaud);
-            return ResponseEntity.created(URI.create("api/v1/applauds/" + newApplaud.getId())).body(newApplaud);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public Applaud createApplaud(@RequestBody ApplaudDTO applaudDTO) {
+            return applaudService.addApplaud(applaudDTO);
     }
     //need to refactor frontend to send to be /update/{applaudId}
     @PutMapping("/update/{applaudId}")

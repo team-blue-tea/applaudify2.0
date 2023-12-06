@@ -13,5 +13,9 @@ public interface ApplaudMapper {
     @Mapping(target = "sender", source = "sender")
     @Mapping(target = "receiver", source = "receiver")
     ApplaudDTO applaudToDTO(Applaud applaud);
+
+    @Mapping(target = "sender", source = "sender")
+    @Mapping(target = "receiver", source = "receiver")
+    Applaud dtoToApplaud(ApplaudDTO applaudDTO);
 }
 
