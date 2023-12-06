@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/applauds")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ApplaudControllerV1 {
 
     private final ApplaudService applaudService;

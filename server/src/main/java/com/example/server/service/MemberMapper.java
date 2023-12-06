@@ -1,6 +1,7 @@
 package com.example.server.service;
 import com.example.server.model.Member;
 import com.example.server.model.dto.MemberDTO;
+import com.example.server.model.dto.MemberRequestDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -11,4 +12,6 @@ public interface MemberMapper {
     MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
 
     MemberDTO memberToDTO(Member member);
+
+    Member requestDTOtoMember(MemberRequestDTO memberRequestDTO);
 }

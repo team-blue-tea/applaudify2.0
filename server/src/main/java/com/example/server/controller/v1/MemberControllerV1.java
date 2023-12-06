@@ -1,9 +1,12 @@
 package com.example.server.controller.v1;
 
 import com.example.server.model.Member;
+import com.example.server.model.dto.MemberRequestDTO;
 import com.example.server.repository.MemberRepository;
 import com.example.server.service.MemberService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,15 +14,13 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/members")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MemberControllerV1 {
 
-    private final MemberRepository repo;
     private final MemberService memberService;
 
     @Autowired
-    public MemberControllerV1(MemberRepository repo, MemberService memberService) {
-        this.repo = repo;
+    public MemberControllerV1(MemberService memberService) {
         this.memberService = memberService;
     }
 
@@ -29,50 +30,13 @@ public class MemberControllerV1 {
     }
 
     @PostMapping
-    public String addMember(@RequestBody Member member) {
-        repo.addMember(member);
-        return "Member with id: " + member.getId() + " created!";
+    @ResponseStatus(HttpStatus.CREATED)
+    public Member addMember(@Valid @RequestBody MemberRequestDTO memberRequestDTO) {
+        return memberService.addMember(memberRequestDTO);
     }
 
     @PutMapping("/{id}")
-    public String updateMember(@PathVariable("id") String memberId, @RequestBody Member updatedMember) {
-        UUID memberUUID = UUID.fromString(memberId);
-        Member existingMember = repo.getMemberById(memberUUID);
-
-        if (existingMember != null) {
-            updateMemberFields(existingMember, updatedMember);
-            repo.updateMember(existingMember);
-
-            return "Member with id: " + memberId + " successfully updated";
-        } else {
-            return "Member with id: " + memberId + " not found";
-        }
-    }
-
-    private void updateMemberFields(Member existingMember, Member updatedMember) {
-        if (updatedMember.getName() != null) {
-            existingMember.setName(updatedMember.getName());
-        }
-        if (updatedMember.getJobTitle() != null) {
-            existingMember.setJobTitle(updatedMember.getJobTitle());
-        }
-        if (updatedMember.getCompany() != null) {
-            existingMember.setCompany(updatedMember.getCompany());
-        }
-        if (updatedMember.getEmail() != null) {
-            existingMember.setEmail(updatedMember.getEmail());
-        }
-        if (updatedMember.getAvatarUrl() != null) {
-            existingMember.setAvatarUrl(updatedMember.getAvatarUrl());
-        }
-        if (updatedMember.getBio() != null) {
-            existingMember.setBio(updatedMember.getBio());
-        }
-        if (updatedMember.getSkills() != null) {
-            existingMember.setSkills(updatedMember.getSkills());
-        }
-        if (updatedMember.getExperience() != null) {
-            existingMember.setExperience(updatedMember.getExperience());
-        }
+    public Member updateMember(@PathVariable("id") UUID memberId, @RequestBody Member updatedMember) {
+          return memberService.updateMember(memberId, updatedMember);
     }
 }

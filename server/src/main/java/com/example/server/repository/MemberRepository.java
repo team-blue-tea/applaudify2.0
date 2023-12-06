@@ -23,16 +23,16 @@ public class MemberRepository {
         return Streamable.of(memberRepository.findAll()).toList();
     }
 
-    public void addMember(Member member) {
-        memberRepository.save(member);
+    public Member addMember(Member member) {
+       return memberRepository.save(member);
     }
 
     public Member getMemberById(UUID memberUUID) {
         return memberRepository.findById(memberUUID).get();
     }
 
-    public void updateMember(Member updatedMember) {
-        memberRepository.save(updatedMember);
+    public Member updateMember(Member updatedMember) {
+        return memberRepository.save(updatedMember);
     }
 
     public Member findByEmail(String memberEmail) {
