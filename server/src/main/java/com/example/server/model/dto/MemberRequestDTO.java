@@ -14,7 +14,7 @@ public class MemberRequestDTO {
     private String name;
 
     @NotBlank(message = "Email is required")
-    @Email(message = "Email should be valid")
+    @Email(message = "Email needs to be valid")
     private String email;
     private String avatarUrl;
 }

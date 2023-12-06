@@ -34,11 +34,7 @@ public class ApplaudService {
     }
 
     public List<Applaud> getApplaudsByReceiverId(UUID receiverId) {
-        var applauds = applaudRepository.findByReceiverId(receiverId);
-        if (applauds == null) {
-            return Collections.emptyList();
-        }
-        return applauds;
+        return applaudRepository.findByReceiverId(receiverId);
     }
 
     public List<Applaud> getPublishedApplaudsByMemberEmail(String memberEmail) {

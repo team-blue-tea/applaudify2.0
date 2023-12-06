@@ -34,8 +34,7 @@ public class MemberService {
     }
 
     public Member addMember(MemberRequestDTO memberRequestDTO) {
-        var member = memberMapper.requestDTOtoMember(memberRequestDTO);
-        return memberRepository.addMember(member);
+        return memberRepository.addMember(memberMapper.requestDTOtoMember(memberRequestDTO));
     }
 
     private Member updateMemberFields(Member existingMember, Member updatedMember) {
